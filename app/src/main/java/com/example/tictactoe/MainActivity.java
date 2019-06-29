@@ -42,8 +42,9 @@ public class MainActivity extends AppCompatActivity {
         difficulty= intent.getIntExtra(DifficultyActivity.EXTRA_DIFFICULTY, 0);
 
         sharedPreferences=getPreferences(Context.MODE_PRIVATE);
-        bestTime=sharedPreferences.getLong(getString(R.string.time_Key), 0);
-        tvBestTime.setText(getString(R.string.am_tvBestTime)+bestTime/1000F + getString(R.string.am_Seconds));
+        bestTime=sharedPreferences.getLong(getString(R.string.time_Key), 1000000);
+        if(bestTime!=1000000)
+            tvBestTime.setText(getString(R.string.am_tvBestTime)+bestTime/1000F + getString(R.string.am_Seconds));
     }
 
     @Override
