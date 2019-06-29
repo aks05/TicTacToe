@@ -66,19 +66,18 @@ class BoardView extends View {
             char win = gameEngine.play(x, y);
             invalidate();
 
-            if (win != ' ') {
-                activity.gameEnded(win);
-            } else {
-                // computer plays ...
-                win = gameEngine.computer();
-                invalidate();
-
-                if (win != ' ') {
+            if (win!= 'e'){
+                if (win != ' ' ) {
                     activity.gameEnded(win);
+                } else if(MainActivity.mode){
+                    win = gameEngine.computer();
+                    invalidate();
+                    if (win != ' ') {
+                        activity.gameEnded(win);
+                    }
                 }
             }
         }
-
         return super.onTouchEvent(event);
     }
 
