@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -45,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences=getPreferences(Context.MODE_PRIVATE);
         bestTime=sharedPreferences.getLong(getString(R.string.time_Key), 0);
-        Log.i("bestTime", ""+bestTime);
         tvBestTime.setText(getString(R.string.am_tvBestTime)+bestTime/1000F + getString(R.string.am_Seconds));
     }
 
@@ -63,13 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.am_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_new_game) {
+        if (item.getItemId() == R.id.amMiNewGame) {
             newGame();
         }
 
@@ -79,11 +76,8 @@ public class MainActivity extends AppCompatActivity {
     public void gameEnded(char c) {
         String msg = (c == 'T') ? "Game Ended. Tie" : "GameEnded. " + c + " win";
         runtime=runtime+System.currentTimeMillis()-startTime;
-        Log.i("bestTime", ""+runtime);
-        Log.i("bestTime", ""+runtime/1000F);
         if(runtime<bestTime && c!='T') {
             bestTime=runtime;
-            Log.i("bestTime", ""+bestTime/1000F);
             tvBestTime.setText(getString(R.string.am_tvBestTime)+bestTime/1000F + getString(R.string.am_Seconds));
             SharedPreferences.Editor editor= sharedPreferences.edit();
             editor.putLong(getString(R.string.time_Key), bestTime);
